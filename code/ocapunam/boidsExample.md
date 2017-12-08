@@ -1,7 +1,7 @@
 ---
 layout: full
 title: Final Development
-permalink: /code/ocapunam-boids2/
+permalink: /code/ocapunam-boids/
 author: Ozguc
 ---
 <script deferred type="module">
@@ -9,27 +9,26 @@ author: Ozguc
 import * as THREE from '../lib/module.js'
 import {Boid, Swarm} from '../ocapunam/boids.js'
 
-export default class BoidsRenderer {
-    constructor({
-            width = 1024,
-            height = 1024,
-            update = (time) => { },
-            boidCount = 100,
-            }={}) {
 
 let scene, camera
+let rtTexture 
 let swarm
 
-let boidCount = 100
+let sWidth = window.innerWidth
+let sHeight = window.innerHeight
+
+let boidCount = 500
 
 let renderer = new THREE.WebGLRenderer( { preserveDrawingBuffer: true } )
     renderer.setPixelRatio( window.devicePixelRatio );
-    renderer.setSize(width, height)
+    renderer.setSize(sWidth, sHeight)
     renderer.autoClear = false;
 
 
     document.body.appendChild(renderer.domElement)
 
+function init(){
+    
     scene = new THREE.Scene()
 
     camera = new THREE.OrthographicCamera( 0, sWidth, 0, sHeight, -10000, 10000 )
@@ -39,25 +38,25 @@ let renderer = new THREE.WebGLRenderer( { preserveDrawingBuffer: true } )
     swarm.createBoids(scene, boidCount)
     swarm.id = setInterval(swarm.animate, 10000)
 
-    this.texture = new THREE.WebGLRenderTarget( window.innerWidth, window.innerHeight, {minFilter: THREE.LinearFilter, magFilter: THREE.NearestFilter, format: THREE.RGBFormat })
-
+    rtTexture = new THREE.WebGLRenderTarget( window.innerWidth, window.innerHeight, { minFilter: THREE.LinearFilter, magFilter: THREE.NearestFilter, format: THREE.RGBFormat } )
     
-const render = () => {        
-            requestAnimationFrame(render.bind(this))
-            update(clock.getDelta())
-            this.swarm.animate()
-            renderer.render(scene, camera, this.texture, true)
+
 }
-     this.init = () => render()
+    
+function animate(){
+    requestAnimationFrame(animate)
+    swarm.animate()
+    console.log(rtTexture)
+    render()
 }
 
-let boids = new BoidsRenderer({
-    boidCount: 100,
-    width: dim*10,
-    height: dim*10,
-    update: (dt) => update(dt),
-})
+function render() { 
+    renderer.render(scene, camera)
+    renderer.render(scene,camera,rtTexture)
+} 
+    
+    init()
+    animate()
 
-boids.init()
 </script>
 

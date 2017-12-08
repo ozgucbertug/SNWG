@@ -30,9 +30,11 @@ let boids = new BoidsRenderer({
     update: (dt) => update(dt),
 })
 
+let rtMaterial = new T.MeshPhongMaterial({ color: 0xbea9de, map: boids.texture})
+console.log(rtMaterial, boids.texture);
+
 let ground = new T.Mesh(
-    new T.PlaneGeometry(dim, dim, subDiv, subDiv),
-    new T.MeshPhongMaterial({ color: 0xbea9de, map: boids.texture.texture}))
+    new T.PlaneGeometry(dim, dim, subDiv, subDiv), rtMaterial)
     ground.rotation.set(-Math.PI/2,0,0)
     ground.castShadow = true
     ground.receiveShadow = true
@@ -64,6 +66,7 @@ function update(time) {
     dt += time
     starField.rotation.x = dt/500
     starField.rotation.y = dt/500
+    rtMaterial.map.needsUpdate = true
 }
 
 let renderer = new OzRenderer({

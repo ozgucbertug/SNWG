@@ -1,4 +1,9 @@
-
+---
+layout: full
+title: Final Development
+permalink: /code/ocapunam-boidTest/
+author: Ozguc
+---
 import * as THREE from '../lib/module.js'
 
 import {Boid, Swarm} from '../ocapunam/boids.js'
@@ -18,7 +23,7 @@ export default class BoidsRenderer {
             renderer.setSize(width, height)
             renderer.autoClear = false;
 
-        // document.body.appendChild(renderer.domElement)
+        document.body.appendChild(renderer.domElement)
 
         let scene = new THREE.Scene()
 
@@ -26,8 +31,9 @@ export default class BoidsRenderer {
         camera.position.z = 1000
         scene.add(camera)
 
+        // Test Geo
         var geometry = new THREE.SphereGeometry(100, 32, 16);
-        var material = new THREE.MeshBasicMaterial({wireframe:true, wireframeLinewidth: 3, color: 0xFF0000 });
+        var material = new THREE.MeshBasicMaterial({wireframe:true, wireframeLinewidth: 3, color: 0xFFFFFF });
         var mesh = new THREE.Mesh(geometry, material);
         scene.add(mesh)
         
@@ -35,19 +41,28 @@ export default class BoidsRenderer {
         this.swarm  = new Swarm(width, height)
         this.swarm.createBoids(scene, boidCount)
 
-        this.texture = new THREE.WebGLRenderTarget( window.innerWidth, window.innerHeight, { minFilter: THREE.LinearFilter, magFilter: THREE.NearestFilter});
+        this.texture = new THREE.WebGLRenderTarget( width, height, { minFilter: THREE.LinearFilter, magFilter: THREE.NearestFilter, format: THREE.RGBFormat });
         
         const render = () => {        
             requestAnimationFrame(render.bind(this))
             update(clock.getDelta())
             this.swarm.animate()
-            renderer.render(scene,camera)
+
+            //console.log(this.texture)
+
             renderer.render(scene, camera, this.texture, true)
-            // console.log(scene.children[0].position)
-            // console.log(this.swarm)
+            renderer.render(scene, camera)
         }
 
         this.init = () => render()
     }
 }
 
+let boids = new BoidsRenderer({
+    boidCount: 50,
+    width: subDiv,
+    height: subDiv,
+    update: (dt) => update(dt),
+})
+
+boids.init()
