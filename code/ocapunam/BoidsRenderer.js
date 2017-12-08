@@ -34,8 +34,6 @@ export default class BoidsRenderer {
             swarm.createBoids(scene, boidCount)
             // swarm.id = setInterval(swarm.animate, 33)
             
-        //for (let boid in swarm.boids) scene.add(boid.mesh)
-
         const render = () => {        
             update(clock.getDelta())
             swarm.animate()

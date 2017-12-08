@@ -8,8 +8,8 @@ export function Boid(swarm) {
     this.y = Math.random() * swarm.height;
     this.heading = Math.random() * 2 * Math.PI - Math.PI;
     this.mesh = new THREE.Mesh(
-        new THREE.SphereGeometry(100, 6, 6),
-        new THREE.MeshPhongMaterial({ color: 0xAAAAAA }))
+        new THREE.SphereGeometry(3, 6, 6),
+        new THREE.MeshBasicMaterial({ color: 0xFFFFFF, opacity:.1}))
     this.mesh.position.set(this.x, this.y)
 }
 
@@ -130,7 +130,7 @@ export function Swarm(w,h) {
 
 // wrap padding
 
-    this.padding = 0;
+    this.padding = -2;
 }
 
 Swarm.prototype.createBoids = function(scene, n=1) {

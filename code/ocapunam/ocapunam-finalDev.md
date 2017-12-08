@@ -59,7 +59,7 @@ let dirLightHeper = new T.DirectionalLightHelper( dirLight, 10 )
 
 function update(time) {
     dt += time
-    let curBoids = boids.boidsList
+    let curBoids = boids.swarm.boids
     if(curBoids != undefined){
         for (var i = 0; i < curBoids.length; i++) {
             let tempVert = Math.floor(curBoids[i].x)*subDiv + Math.floor(curBoids[i].y)
@@ -84,7 +84,7 @@ boids.init()
 let renderer = new OzRenderer({
     position: { x: 0, y: 10, z: 15 },
     update: (t) => update(t),
-    path: '../../data/evan-erdos/' })
+    })
 
 
 
