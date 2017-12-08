@@ -1,52 +1,53 @@
+
 import * as THREE from '../lib/module.js'
 
 import {Boid, Swarm} from '../ocapunam/boids.js'
 
 export default class BoidsRenderer {
     constructor({
-            path = '../../data/',
             width = 1024,
             height = 1024,
-            fog = { color: 0x111111, near: 1e2, far: 1e3 },
-            ambient = 0x14031B,
             update = (time) => { },
             boidCount = 100,
             }={}) {
 
         let clock = new THREE.Clock()
-        let listener = new THREE.AudioListener()
 
-        let renderer = new THREE.WebGLRenderer()
-            renderer.setPixelRatio(window.devicePixelRatio)
+        let renderer = new THREE.WebGLRenderer( { preserveDrawingBuffer: true } )
+            renderer.setPixelRatio( window.devicePixelRatio );
             renderer.setSize(width, height)
-            // renderer.setClearColor(ambient, 0)
+            renderer.autoClear = false;
 
+        // document.body.appendChild(renderer.domElement)
 
         let scene = new THREE.Scene()
-            //scene.fog = new THREE.Fog(...Object.values(fog))
-            // scene.add(new THREE.AmbientLight(ambient))
 
-        var camera = new THREE.OrthographicCamera(width/-2, width/2, height/2, height/-2, -1000, 1000)
-            scene.add(camera)
+        let camera = new THREE.OrthographicCamera( 0, this.width, 0, this.height, -1000, 10000 )
+        camera.position.z = 1000
+        scene.add(camera)
+
+        var geometry = new THREE.SphereGeometry(100, 32, 16);
+        var material = new THREE.MeshBasicMaterial({wireframe:true, wireframeLinewidth: 3, color: 0xFF0000 });
+        var mesh = new THREE.Mesh(geometry, material);
+        scene.add(mesh)
         
 
-        let swarm = new Swarm(width, height)
-            swarm.createBoids(scene, boidCount)
-            // swarm.id = setInterval(swarm.animate, 33)
-            
-        const render = () => {        
-            update(clock.getDelta())
-            swarm.animate()
-            this.boidsList = swarm.boids
+        this.swarm  = new Swarm(width, height)
+        this.swarm.createBoids(scene, boidCount)
 
-            renderer.render(scene, camera)
+        this.texture = new THREE.WebGLRenderTarget( window.innerWidth, window.innerHeight, { minFilter: THREE.LinearFilter, magFilter: THREE.NearestFilter});
+        
+        const render = () => {        
             requestAnimationFrame(render.bind(this))
-            //console.log(swarm.boids[0])
+            update(clock.getDelta())
+            this.swarm.animate()
+            renderer.render(scene,camera)
+            renderer.render(scene, camera, this.texture, true)
+            // console.log(scene.children[0].position)
+            // console.log(this.swarm)
         }
 
         this.init = () => render()
-
-        // window.addEventListener('load', () => this.init(), false)
     }
 }
 
