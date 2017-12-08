@@ -1,7 +1,7 @@
 ---
 layout: full
 title: Final Development
-permalink: /code/ocapunam-boids/
+permalink: /code/ocapunam-boids2/
 author: Ozguc
 ---
 <script deferred type="module">

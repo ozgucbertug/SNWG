@@ -62,18 +62,6 @@ boids.init()
 
 function update(time) {
     dt += time
-
-    let curBoids = boids.swarm.boids
-    if(curBoids != undefined){
-        for (var i = 0; i < curBoids.length; i++) {
-            let tempVert = Math.floor(curBoids[i].x)*subDiv + Math.floor(curBoids[i].y)
-
-            ground.geometry.vertices[tempVert].z += 1
-        }
-    }
-    ground.geometry.computeVertexNormals()
-
-    ground.geometry.verticesNeedUpdate = true
     starField.rotation.x = dt/500
     starField.rotation.y = dt/500
 }

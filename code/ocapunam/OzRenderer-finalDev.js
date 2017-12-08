@@ -155,7 +155,7 @@ export default class ozRenderer {
             /// 6a. The fog constructor takes 3 arguments:
             ///     a color for the fog, and near and far distances for fading.
             ///
-            scene.fog = new THREE.Fog(...Object.values(fog))
+            // scene.fog = new THREE.Fog(...Object.values(fog))
             scene.background = new THREE.Color(background)
 
 
@@ -194,7 +194,7 @@ export default class ozRenderer {
         ///     but they are included in the library module so you can use them.
         ///
         let controls = new THREE.OrbitControls(camera,renderer.domElement)
-            controls.enableZoom = false
+            // controls.enableZoom = false
             
 
         ///

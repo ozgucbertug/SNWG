@@ -10,7 +10,7 @@ export function Boid(swarm) {
     this.radius = 3
     this.mesh = new THREE.Mesh(
         new THREE.SphereGeometry(this.radius, 6, 6),
-        new THREE.MeshBasicMaterial({ transparent: true, color: 0xFFFFFF, opacity:1}))
+        new THREE.MeshBasicMaterial({ transparent: true, color: 0xFFFFFF, opacity:.1}))
     this.mesh.position.set(this.x, this.y)
 }
 
