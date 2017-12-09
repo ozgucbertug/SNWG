@@ -46,7 +46,9 @@
 ///         there are specific syntaxes for importing things selectively,
 ///         but in this case you'll want to import everything at once.
 ///
- import * as THREE from '../lib/module.js'
+
+
+import * as THREE from '../lib/module.js'
 
 
 ///

@@ -1,10 +1,4 @@
----
-layout: full
-title: Final Development
-permalink: /code/ocapunam-boidTest/
-author: Ozguc
----
-import * as THREE from '../lib/module.js'
+import * as THREE from '../ocapunam/module.js'
 
 import {Boid, Swarm} from '../ocapunam/boids.js'
 
@@ -23,9 +17,10 @@ export default class BoidsRenderer {
             renderer.setSize(width, height)
             renderer.autoClear = false;
 
-        document.body.appendChild(renderer.domElement)
+        // document.body.appendChild(renderer.domElement)
 
         let scene = new THREE.Scene()
+            scene.background = new THREE.Color(0xFF00FF)
 
         let camera = new THREE.OrthographicCamera( 0, this.width, 0, this.height, -1000, 10000 )
         camera.position.z = 1000
@@ -58,11 +53,3 @@ export default class BoidsRenderer {
     }
 }
 
-let boids = new BoidsRenderer({
-    boidCount: 50,
-    width: subDiv,
-    height: subDiv,
-    update: (dt) => update(dt),
-})
-
-boids.init()

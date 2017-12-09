@@ -6,7 +6,7 @@ author: Ozguc
 ---
 <script deferred type="module">
 
-import * as THREE from '../lib/module.js'
+import * as THREE from '../ocapunam/module.js'
 import {Boid, Swarm} from '../ocapunam/boids.js'
 
 

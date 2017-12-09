@@ -1,6 +1,6 @@
 /* Boid prototype */
 
-import * as THREE from '../lib/module.js'
+import * as THREE from '../ocapunam/module.js'
 
 
 export function Boid(swarm) {

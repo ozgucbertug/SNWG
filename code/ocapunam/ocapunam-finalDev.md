@@ -11,7 +11,7 @@ author: Ozguc
 <script deferred type="module">
 
 
-import * as T from '../lib/module.js'
+import * as T from '../ocapunam/module.js   '
 
 import OzRenderer from '../ocapunam/OzRenderer-finalDev.js'
 import BoidsRenderer from '../ocapunam/BoidsRenderer.js'
@@ -30,7 +30,8 @@ let boids = new BoidsRenderer({
     update: (dt) => update(dt),
 })
 
-let rtMaterial = new T.MeshPhongMaterial({ color: 0xbea9de, map: boids.texture})
+// let rtMaterial = new T.MeshPhongMaterial({ color: 0xbea9de, map: boids.texture})
+let rtMaterial = new T.MeshPhongMaterial({ color: 0xbea9de})
 console.log(rtMaterial, boids.texture);
 
 let ground = new T.Mesh(
@@ -60,13 +61,13 @@ let starField = new T.Points( starsGeometry, starsMaterial );
 sky.add( starField );
 
 
-boids.init()
+// boids.init()
 
 function update(time) {
     dt += time
     starField.rotation.x = dt/500
     starField.rotation.y = dt/500
-    rtMaterial.map.needsUpdate = true
+    // rtMaterial.map.needsUpdate = true
 }
 
 let renderer = new OzRenderer({
