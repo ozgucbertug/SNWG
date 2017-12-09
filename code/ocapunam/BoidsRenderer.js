@@ -17,10 +17,10 @@ export default class BoidsRenderer {
             renderer.setSize(width, height)
             renderer.autoClear = false;
 
-        // document.body.appendChild(renderer.domElement)
+        document.body.appendChild(renderer.domElement)
 
         let scene = new THREE.Scene()
-            scene.background = new THREE.Color(0xFF00FF)
+            scene.background = new THREE.Color(0x000000)
 
         let camera = new THREE.OrthographicCamera( 0, this.width, 0, this.height, -1000, 10000 )
         camera.position.z = 1000

@@ -25,4 +25,3 @@ let boids = new BoidsRenderer({
 })
 
 boids.init()
-
